@@ -52,20 +52,29 @@ export default function CommandPalette({ open, onClose, commands }: CommandPalet
   }, [filtered]);
 
   // Reset state when opening
+  /* eslint-disable react-hooks/refs -- reading prevOpen ref to detect open→close transition */
+  const prevOpen = useRef(open);
+  if (open && !prevOpen.current) {
+    setQuery("");
+    setSelectedIndex(0);
+  }
+  prevOpen.current = open;
+  /* eslint-enable react-hooks/refs */
+
+  // Focus input when opening
   useEffect(() => {
     if (open) {
-      setQuery("");
-      setSelectedIndex(0);
       requestAnimationFrame(() => inputRef.current?.focus());
     }
   }, [open]);
 
   // Clamp selectedIndex when list changes
-  useEffect(() => {
-    if (selectedIndex >= flatList.length) {
-      setSelectedIndex(Math.max(0, flatList.length - 1));
-    }
-  }, [flatList.length, selectedIndex]);
+  const clampedIndex = selectedIndex >= flatList.length
+    ? Math.max(0, flatList.length - 1)
+    : selectedIndex;
+  if (clampedIndex !== selectedIndex) {
+    setSelectedIndex(clampedIndex);
+  }
 
   // Scroll selected item into view
   useEffect(() => {
@@ -100,8 +109,6 @@ export default function CommandPalette({ open, onClose, commands }: CommandPalet
     [flatList, selectedIndex, executeCommand, onClose]
   );
 
-  if (!open) return null;
-
   // Pre-compute flat index offset for each category group
   const groupOffsets = useMemo(() => {
     const offsets: number[] = [];
@@ -112,6 +119,8 @@ export default function CommandPalette({ open, onClose, commands }: CommandPalet
     }
     return offsets;
   }, [grouped]);
+
+  if (!open) return null;
 
   return (
     <div

@@ -1,4 +1,4 @@
-import type { BaristaColors, BaristaState, IdleSub, ClientNPC, BaristaScene, FacialExpression } from "./baristaTypes";
+import type { BaristaColors, ClientNPC, BaristaScene, FacialExpression } from "./baristaTypes";
 import { W } from "./baristaTypes";
 import { getBaristaTargetX, getWalkCycle, getIdleSubParams } from "./baristaState";
 

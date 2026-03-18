@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { MotionConfig } from "motion/react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";

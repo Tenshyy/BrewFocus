@@ -28,8 +28,6 @@ const EXTRA_MODES: AiModeConfig[] = [
   { mode: "weeklyReview", icon: "calendar", labelKey: "weeklyReview", descKey: "weeklyReviewDesc" },
 ];
 
-const AI_MODES: AiModeConfig[] = [...FAVORITE_MODES, ...EXTRA_MODES];
-
 interface AiModeSelectorProps {
   activeMode: AiMode;
   onSelect: (mode: AiMode) => void;

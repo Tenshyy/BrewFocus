@@ -56,10 +56,12 @@ export default function DataSettings() {
     e.target.value = "";
   }
 
+  // eslint-disable-next-line react-hooks/purity -- Date.now() needed for relative time display
+  const now = Date.now();
   function formatTimestamp(iso: string | null): string {
     if (!iso) return t("never");
     const d = new Date(iso);
-    const mins = Math.round((Date.now() - d.getTime()) / 60000);
+    const mins = Math.round((now - d.getTime()) / 60000);
     if (mins < 1) return t("justNow");
     if (mins < 60) return t("minutesAgo", { mins });
     const hours = Math.floor(mins / 60);

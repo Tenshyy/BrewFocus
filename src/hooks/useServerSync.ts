@@ -123,6 +123,5 @@ export function useServerSync() {
       unsubs.forEach((unsub) => unsub());
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

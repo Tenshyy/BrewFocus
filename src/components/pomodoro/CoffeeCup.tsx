@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useEffect } from "react";
+import { useMemo, useRef, useEffect, useCallback } from "react";
 import { useTimerStore } from "@/stores/timerStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { CAFE_THEMES } from "@/lib/themes";
@@ -96,7 +96,7 @@ export default function CoffeeCup() {
       : PIXEL_SIZE;
 
   // Draw a single frame
-  const drawCanvas = (colors: ([number, number, number] | null)[][]) => {
+  const drawCanvas = useCallback((colors: ([number, number, number] | null)[][]) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ps = getPixelSize();
@@ -118,7 +118,7 @@ export default function CoffeeCup() {
         }
       }
     }
-  };
+  }, []);
 
   useEffect(() => {
     const prev = prevPixelsRef.current;
@@ -180,7 +180,7 @@ export default function CoffeeCup() {
     animFrameRef.current = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animFrameRef.current);
-  }, [pixels]);
+  }, [pixels, drawCanvas]);
 
   // Handle resize
   useEffect(() => {
@@ -191,7 +191,7 @@ export default function CoffeeCup() {
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, []);
+  }, [drawCanvas]);
 
   return (
     <div className="flex justify-center">

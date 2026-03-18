@@ -15,6 +15,7 @@ const COMEBACK_THRESHOLD = 30 * 60 * 1000; // 30 minutes in background
 
 export function useReminders() {
   const shownRef = useRef<Set<string>>(new Set());
+  // eslint-disable-next-line react-hooks/purity -- Date.now() is needed for activity tracking init
   const lastActivityRef = useRef(Date.now());
   const focusEndTimeRef = useRef<number | null>(null);
   const hiddenSinceRef = useRef<number | null>(null);

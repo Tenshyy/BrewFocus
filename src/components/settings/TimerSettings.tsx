@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { TIMER_PRESETS } from "@/lib/constants";
@@ -24,15 +24,16 @@ export default function TimerSettings() {
   const ambianceAutoplay = useSettingsStore((s) => s.ambianceAutoplay);
   const setAmbianceAutoplay = useSettingsStore((s) => s.setAmbianceAutoplay);
 
-  const [notifSupported, setNotifSupported] = useState(false);
-  const [notifDenied, setNotifDenied] = useState(false);
-
-  useEffect(() => {
-    setNotifSupported(isNotificationSupported());
-    if (isNotificationSupported()) {
-      setNotifDenied(Notification.permission === "denied");
-    }
-  }, []);
+  const notifSupported = useSyncExternalStore(
+    () => () => {},
+    () => isNotificationSupported(),
+    () => false,
+  );
+  const notifDenied = useSyncExternalStore(
+    () => () => {},
+    () => isNotificationSupported() && Notification.permission === "denied",
+    () => false,
+  );
 
   const focusMin = Math.round(timerConfig.focusDuration / 60);
   const breakMin = Math.round(timerConfig.breakDuration / 60);
@@ -40,12 +41,7 @@ export default function TimerSettings() {
   async function handleNotifToggle(checked: boolean) {
     if (checked) {
       const granted = await requestNotificationPermission();
-      if (granted) {
-        setNotificationsEnabled(true);
-      } else {
-        setNotifDenied(true);
-        setNotificationsEnabled(false);
-      }
+      setNotificationsEnabled(granted);
     } else {
       setNotificationsEnabled(false);
     }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
@@ -53,9 +53,9 @@ export default function TaskListCard() {
   }, []);
 
   // Reset to list view if eisenhower is disabled
-  useEffect(() => {
-    if (!eisenhowerEnabled && viewMode === "matrix") setViewMode("list");
-  }, [eisenhowerEnabled, viewMode]);
+  if (!eisenhowerEnabled && viewMode === "matrix") {
+    setViewMode("list");
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -107,23 +107,20 @@ export default function TaskListCard() {
   const doneTasks = sortedTasks.filter((t) => t.status === "done");
   const doneCount = doneTasks.length;
 
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event;
-      if (!over || active.id === over.id) return;
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
 
-      const oldIndex = todoTasks.findIndex((t) => t.id === active.id);
-      const newIndex = todoTasks.findIndex((t) => t.id === over.id);
-      if (oldIndex < 0 || newIndex < 0) return;
+    const oldIndex = todoTasks.findIndex((t) => t.id === active.id);
+    const newIndex = todoTasks.findIndex((t) => t.id === over.id);
+    if (oldIndex < 0 || newIndex < 0) return;
 
-      const reordered = [...todoTasks];
-      const [moved] = reordered.splice(oldIndex, 1);
-      reordered.splice(newIndex, 0, moved);
+    const reordered = [...todoTasks];
+    const [moved] = reordered.splice(oldIndex, 1);
+    reordered.splice(newIndex, 0, moved);
 
-      useTaskStore.getState().reorderTasks(reordered.map((t) => t.id));
-    },
-    [todoTasks]
-  );
+    useTaskStore.getState().reorderTasks(reordered.map((t) => t.id));
+  };
 
   return (
     <Card animated>

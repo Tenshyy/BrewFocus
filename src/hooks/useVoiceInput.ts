@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useSyncExternalStore } from "react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Web Speech API types (non-standard, webkit-prefixed)
@@ -27,16 +27,12 @@ interface UseVoiceInputReturn {
 export function useVoiceInput(locale: string = "fr-FR"): UseVoiceInputReturn {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [isSupported, setIsSupported] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isSupported = useSyncExternalStore(
+    () => () => {},
+    () => "SpeechRecognition" in window || "webkitSpeechRecognition" in window,
+    () => false,
+  );
   const recognitionRef = useRef<any>(null);
-
-  // Detect Speech API support after hydration to avoid SSR mismatch
-  useEffect(() => {
-    setIsSupported(
-      "SpeechRecognition" in window || "webkitSpeechRecognition" in window
-    );
-  }, []);
 
   const startListening = useCallback(() => {
     if (!isSupported) return;
@@ -57,7 +53,6 @@ export function useVoiceInput(locale: string = "fr-FR"): UseVoiceInputReturn {
 
     recognition.onstart = () => setIsListening(true);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recognition.onresult = (event: any) => {
       let finalTranscript = "";
       let interimTranscript = "";

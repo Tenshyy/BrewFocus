@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSessionStore } from "@/stores/sessionStore";
 import { useGamificationStore } from "@/stores/gamificationStore";
@@ -25,15 +25,14 @@ export default function DailyProgress() {
   const goalReached = todayCount >= dailyGoal;
 
   // Trigger celebration when goal is reached for the first time today
-  useEffect(() => {
-    if (!hydrated || !goalReached || !showCelebrations) return;
+  if (hydrated && goalReached && showCelebrations) {
     const today = new Date();
     const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
     if (lastCelebratedDate !== todayStr) {
       setLastCelebratedDate(todayStr);
       setShowCelebration(true);
     }
-  }, [hydrated, goalReached, showCelebrations, lastCelebratedDate, setLastCelebratedDate]);
+  }
 
   if (!hydrated) return null;
 

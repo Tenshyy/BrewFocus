@@ -3,8 +3,6 @@
  * Used when provider === "demo" to let users try the app without an API key.
  */
 
-import type { AiMode } from "@/types/ai";
-
 // ─── Keyword groups for braindump task generation ────────────────────────
 
 interface KeywordGroup {

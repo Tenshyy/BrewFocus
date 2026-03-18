@@ -58,6 +58,7 @@ export default function FeaturesSettings() {
 }
 
 function FeatureRow({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   id,
   icon,
   label,

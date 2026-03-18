@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ── BREWFOCUS Design Tokens ─────────────────────────────── */
+@theme inline {
+  --color-brew-bg: #1A1714;
+  --color-brew-panel: #23201B;
+  --color-brew-border: #3A3530;
+  --color-brew-orange: #E07A3A;
+  --color-brew-orange-glow: #F09A5A;
+  --color-brew-orange-dim: #A85A28;
+  --color-brew-cream: #F0EBE5;
+  --color-brew-cream-dim: #B8A48E;
+  --color-brew-gray: #8A8078;
+  --color-brew-coffee-dark: #3D2815;
+  --color-brew-coffee-mid: #6B4423;
+  --color-brew-coffee-light: #8A5A30;
+  --color-cat-admin: #E07A3A;
+  --color-cat-perso: #6BA368;
+  --color-cat-travail: #5B8EC9;
+  --color-cat-idee: #C4A24E;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, "Courier New", monospace;
+}
+
+/* ── Base Styles ─────────────────────────────────────────── */
+body {
+  background: var(--color-brew-bg);
+  color: var(--color-brew-cream);
+  font-family: var(--font-mono);
+}
+
+/* ── Pixel Art Grid ──────────────────────────────────────── */
+.pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(16, var(--pixel-size, 6px));
+  grid-template-rows: repeat(16, var(--pixel-size, 6px));
+  image-rendering: pixelated;
+}
+
+@media (max-width: 640px) {
+  .pixel-grid {
+    --pixel-size: 4px;
+  }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brew-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brew-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brew-gray);
+}
+
+/* ── Keyframe Animations ─────────────────────────────────── */
+@keyframes steamRise {
+  0% {
+    opacity: 0.4;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-36px) scale(1.8);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift, 0px)) rotate(var(--rotation, 360deg));
+    opacity: 0;
+  }
+}
+
+.animate-confetti-fall {
+  animation: confetti-fall 2.5s ease-in forwards;
+}
+
+/* ── Reduced Motion (ADHD sensory sensitivity) ──────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

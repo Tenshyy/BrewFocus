@@ -1,0 +1,30 @@
+{
+  "name": "BrewFocus — Pour, Focus, Brew Results",
+  "short_name": "BrewFocus",
+  "description": "App de productivite TDAH-friendly avec Pomodoro pixel art et IA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1714",
+  "theme_color": "#1A1714",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

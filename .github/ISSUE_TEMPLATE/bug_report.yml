@@ -1,0 +1,110 @@
+name: Bug Report
+description: Something isn't working as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out the sections below so we can reproduce and fix the issue.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: When I click the "Transform" button with an empty brain dump...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce the issue?
+      placeholder: |
+        1. Open the app
+        2. Navigate to...
+        3. Click on...
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Arc
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "e.g. Windows 11, macOS 15, Ubuntu 24.04, iOS 18"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device
+      options:
+        - Desktop
+        - Mobile
+        - Tablet
+    validations:
+      required: true
+
+  - type: dropdown
+    id: llm-provider
+    attributes:
+      label: LLM Provider (if AI-related)
+      options:
+        - Demo mode
+        - Anthropic (Claude)
+        - OpenAI (GPT)
+        - Groq
+        - Ollama (local)
+        - Not applicable
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots or screen recordings.
+    validations:
+      required: false
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors
+      description: Open DevTools (F12) > Console tab, and paste any error messages.
+      render: shell
+    validations:
+      required: false

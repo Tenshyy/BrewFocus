@@ -1,0 +1,60 @@
+name: Feature Request
+description: Suggest a new feature or improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! BrewFocus is built ADHD-first, so we especially value ideas that address specific focus or productivity challenges.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the challenge or frustration this feature addresses. Bonus points if you can tie it to a specific ADHD pattern (decision paralysis, time blindness, task initiation, overwhelm, etc.).
+      placeholder: "I often struggle with... which makes it hard to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative solutions or features you've considered?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature category
+      options:
+        - Timer / Pomodoro
+        - Tasks / Planning
+        - AI Assistant
+        - Brain Dump
+        - Stats / Dashboard
+        - Accessibility
+        - Themes / UI
+        - i18n / Languages
+        - PWA / Mobile
+        - Integrations
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Mockups or references
+      description: Any sketches, screenshots, or links to similar features in other apps?
+    validations:
+      required: false
